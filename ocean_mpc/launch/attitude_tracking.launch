@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+    <!-- ++++++++++++++++++ controller parameters +++++++++++++++ -->
+    <arg name="control_freq_factor" default="20" />
+    <!-- use discrete system -->
+    <arg name="n_nodes" default="7" />
+    <arg name="exp_type" default="real" />
+    <!-- ++++++++++++++++++ controller parameters +++++++++++++++ -->
+
+    <!-- ++++++++++++++++++ mavros parameter +++++++++++++++++ -->
+    <arg name="fcu_url" default="/dev/ttyACM0:57600" />
+    <arg name="gcs_url" default="" />
+    <arg name="tgt_system" default="1" />
+    <arg name="tgt_component" default="1" />
+    <arg name="log_output" default="screen" />
+    <arg name="fcu_protocol" default="v2.0" />
+    <arg name="respawn_mavros" default="false" />
+    <!-- ++++++++++++++++++ mavros parameter +++++++++++++++++ -->
+
+    <!-- ++++++++++++++++++ launch mavros ++++++++++++++++++++ -->
+    <include file="$(find mavros)/launch/node.launch">
+        <arg name="pluginlists_yaml" value="$(find mavros)/launch/apm_pluginlists.yaml" />
+        <arg name="config_yaml" value="$(find mavros)/launch/apm_config.yaml" />
+        <arg name="fcu_url" value="$(arg fcu_url)" />
+        <arg name="gcs_url" value="$(arg gcs_url)" />
+        <arg name="tgt_system" value="$(arg tgt_system)" />
+        <arg name="tgt_component" value="$(arg tgt_component)" />
+        <arg name="log_output" value="$(arg log_output)" />
+        <arg name="fcu_protocol" value="$(arg fcu_protocol)" />
+        <arg name="respawn_mavros" value="$(arg respawn_mavros)" />
+    </include> 
+    <!-- ++++++++++++++++++ launch mavros ++++++++++++++++++++ -->
+
+    <node pkg="ocean_mpc" type="koopman_mpc_node.py" name="koopman_mpc_node" output="screen">
+        <rosparam file="$(find ocean_mpc)/config/motorConfig.yaml" />
+        <param name="n_nodes" value="$(arg n_nodes)" />
+        <param name="control_freq_factor" value="$(arg control_freq_factor)" />
+        <param name="exp_type" value="$(arg exp_type)" />
+    </node>
+            
+</launch>

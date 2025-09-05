@@ -1,0 +1,23 @@
+
+motor: p75
+motor_max: 3.5 
+
+ocean_mass: 35.65
+        
+ocean_inertia: [1.19, 1.03, 0.61]
+
+ocean_add_mass_v: [7.8, 36.8, 36.8]
+ocean_add_mass_r: [0, 2.3, 2.3]
+        
+ocean_linear_damp_v: [5.1, 36.7, 36.7]
+ocean_linear_damp_r: [0, 1.7, 8.8]
+  
+ocean_max_force: [158.4276, 158.4276, 158.4276]
+ocean_max_moment: [54.6344, 59.6087, 57.6819]
+
+ocean_min_force: [-161.6608, -161.6608, -161.6608]
+ocean_min_moment: [47.79278252, 26.48790659, 51.29577835]
+
+
+
+
